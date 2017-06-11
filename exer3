@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+    //loja de informática
+    let ctd = 0;
+    let loja =[["",0,0],["",0,0],["",0,0],["",0,0],["",0,0],["",0,0],["",0,0],["",0,0],["",0,0],["",0,0]];
+    function Loja() {
+      this.conta = 0;
+      this.loja = loja;
+      this.dinheiro = 500;
+      this.adicionarEstoque = function (nome_prod,preco,quant) {
+        if (nome_prod!= undefined && preco != undefined && quant != undefined ) {
+          if (this.dinheiro>= preco * quant && loja[9][0] == 0) {
+              this.loja[ctd][0] = nome_prod;
+              this.dinheiro -= preco * quant;
+              this.loja[ctd][2] = quant;
+              ctd++;
+          }
+        }
+      }
+      this.adicionarPreco = function (nome_prod,preco) {
+        for (var i = 0; i < this.loja.length; i++) {
+          if (nome_prod == this.loja[i][0]) {
+              this.loja[i][1] = preco;
+              break;
+          }
+        }
+      }
+      this.vender = function (nome_prod,quant) {
+        for (var i = 0; i < this.loja.length; i++) {
+          if (nome_prod == this.loja[i][0]) {
+            if (this.loja[i][2]>=quant) {
+               this.loja[i][2] -= quant;
+               this.dinheiro += quant * this.loja[i][1];
+               break;
+            }
+          }
+        }
+      }
+      this.consultarQuant = function (nome_prod){
+        for (var i = 0; i < this.loja.length; i++) {
+          if (nome_prod == this.loja[i][0]) {
+             return this.loja[i][2];
+          }
+        }
+      }
+      this.consultarConta = function () {
+        return this.dinheiro;
+      }
+      this.consultarProd = function (nome_prod) {
+        for (var i = 0; i < this.loja.length; i++) {
+          if (nome_prod == this.loja[i][0]) {
+             return true;
+             break;
+          }
+        }
+        return false;
+      }
+      this.consultarPreco = function (nome_prod) {
+        for (var i = 0; i < this.loja.length; i++) {
+          if (nome_prod == this.loja[i][0]) {
+             return this.loja[i][1];
+          }
+        }
+      }
+      this.consultarCodigo = function (nome_prod) {
+        for (var i = 0; i < this.loja.length; i++) {
+          if (nome_prod == this.loja [i][0]) {
+             return i;
+          }
+        }
+        return -1;
+      }
+      this.irregular = function (codigo,quant) {
+        if (quant <= this.loja[codigo][2]) {
+           return this.loja[codigo][2] -= quant;
+        }
+        else {
+           return -1;
+        }
+      }
+      this.trocar = function (nome_prod) {
+        for (var ctd = 0; ctd < this.loja.length; ctd++) {
+          if (nome_prod == this.loja[ctd][0]) {
+            for (var i = 0; i < this.loja.length; i++) {
+              if (this.loja[ctd][1] == this.loja[i][1]  && i != ctd ) {
+                 this.loja[ctd][2] += 1;
+                 this.loja[i][2] -= 1;
+                 return this.loja[i][0];
+              }
+            }
+          }
+        }
+        return -1;
+      }
+    }
+    const loja1 = new Loja();
+    console.log(loja1.consultarConta () == 500); // já possui um valor inical na conta de 500;
+    loja1.adicionarEstoque ("mouse",3,10); //adc nome do produto, quanto ele custa e a quantidade que eu vou querer dele para adc na minha loja
+    console.log(loja1.consultarConta () == 470); // 500 -  ( 3 * 10 )= 470
+    loja1.adicionarEstoque("mouse",50); //invalido, pois todos os tres parametros devem estar completos
+    console.log(loja1.consultarConta () == 470); // 500 -  ( 3 * 10 )= 470
+    loja1.adicionarPreco ("mouse",10); // nome do produto e o preco a ser adc
+    loja1.vender("computador",2)//invalido, pois não tenho compatadores na loja
+    console.log(loja1.consultarConta () == 470); // 500 -  ( 3 * 10 )= 470
+    loja1.vender ("mouse",3); // produto e quantidade desejada pelo cliente
+    console.log(loja1.consultarQuant("mouse") == 7); //consulta quantidade do produto na loja
+    console.log(loja1.consultarConta() == 500); //470 + 10 * 3 = 500;
+    loja1.adicionarEstoque("computador",1000,10); //invalido pois não tenho dinheiro suficiente
+    loja1.adicionarEstoque ("teclado",8,10);
+    console.log(loja1.consultarConta() == 420); // 500 - ( 8 * 10) = 420
+    loja1.adicionarPreco ("teclado",15);
+    loja1.vender ("teclado",20); //invalido pois não tenho 20 teclados
+    console.log(loja1.consultarQuant("teclado") == 10); //consulta quantidade do produto
+    console.log(loja1.consultarConta() == 420); // 500 - ( 8 * 10) = 420
+    console.log(loja1.consultarProd("computador") == false); //vejo se possui o produto desejado se tem retorna true se não tem false
+    console.log(loja1.consultarProd("teclado") == true);
+    loja1.adicionarPreco("mouse", 11); // posso com essa função tbm mudar o preço
+    console.log(loja1.consultarConta() == 420);
+    console.log(loja1.consultarPreco ("mouse") == 11);
+    console.log(loja1.consultarPreco ("teclado") == 15);
+    loja1.vender("teclado",6);
+    console.log(loja1.consultarConta() == 510); //420 + (6*15) = 510
+    loja1.vender ("mouse", 4);
+    console.log(loja1.consultarQuant ("mouse") == 3);//7-4 = 3
+    console.log(loja1.consultarConta() == 554); //510 + (4*11) = 554
+    console.log(loja1.consultarCodigo ("mouse") == 0);//entra com o nome do produto e retorna o codigo(posição do produto no vetor)
+    console.log(loja1.consultarCodigo ("teclado") == 1);
+    console.log(loja1.consultarCodigo ("computador") == -1); //se o produto não for encontrado retorna -1
+    console.log(loja1.irregular (0,1) == 2);//3-1=2
+    //entra com o codigo(posição do vetor) do produto danificado e quantos são, ele diminui esses produtos da loja. Retorna a quanntidade.
+    console.log(loja1.consultarQuant ("mouse",1) == 2); //3 - 1 = 2
+    loja1.adicionarEstoque ("pen drive",10,10);
+    loja1.adicionarEstoque ("fone de ouvido",10,10);
+    console.log(loja1.consultarQuant ("fone de ouvido") == 10);
+    console.log(loja1.consultarQuant ("pen drive") == 10);
+    loja1.adicionarPreco ("pen drive", 25);
+    loja1.adicionarPreco ("fone de ouvido", 25);
+    console.log(loja1.consultarConta() == 354); //554 - (10 * 10) - (10 * 10) = 354
+    console.log(loja1.irregular(0,10) == -1); // inválido. Se os produtos danificados forem maior do que a quantidade de produtos irá retornar -1
+    loja1.vender("pen drive", 3);
+    console.log(loja1.consultarConta () == 429);//354 + (3 * 25) = 429
+    console.log(loja1.consultarQuant ("pen drive") == 7); // 10 - 3 = 7
+    console.log(loja1.trocar ("pen drive") == "fone de ouvido"); //o cliente entra com um produto que comprou na loja e a função troca esse produto por outro do mesmo valor, sendo que a loja ganha o produto do cliente e o cliente ganho o produto da loja do mesmo valor.
+    console.log(loja1.consultarQuant ("pen drive") == 8);
+    console.log(loja1.consultarQuant ("fone de ouvido") == 9);
+    console.log(loja1.trocar ("mouse") == -1); // se não houver um produto do mesmo valor retorna -1
+    console.log(loja1.consultarQuant ("mouse") == 2);
+    </script>
+  </body>
+</html>
