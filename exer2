@@ -186,27 +186,27 @@
     console.log(atm.consultarQuantidade(5) === 3);
     console.log(atm.consultarValor() === 425);//250+160+15 = 425
     atm.abastecer(10,10);
-    atm.retirar(85);
-    console.log(atm.consultarQuantidade(10) === 9);
-    console.log(atm.consultarQuantidade(50) === 4);
-    console.log(atm.consultarQuantidade(20) === 7);
+    atm.retirar(45);
+    console.log(atm.consultarQuantidade(10) === 10);
+    console.log(atm.consultarQuantidade(50) === 5);
+    console.log(atm.consultarQuantidade(20) === 6);
     console.log(atm.consultarQuantidade(5) === 2);
-    console.log(atm.consultarValor() === 440);//90+200+140+10 = 440
+    console.log(atm.consultarValor() === 480);//100+250+120+10 = 480
     atm.abastecer(10,100);
     atm.retirar(185);
     console.log(atm.consultarQuantidade(100) === 9);
-    console.log(atm.consultarQuantidade(10) === 8);
-    console.log(atm.consultarQuantidade(50) === 3);
-    console.log(atm.consultarQuantidade(20) === 6);
+    console.log(atm.consultarQuantidade(10) === 9);
+    console.log(atm.consultarQuantidade(50) === 4);
+    console.log(atm.consultarQuantidade(20) === 5);
     console.log(atm.consultarQuantidade(5) === 1);
-    console.log(atm.consultarValor() === 1255);//900+80+150+120+5 = 1255
+    console.log(atm.consultarValor() === 1295);//900+90+200+100+5 = 1295
     atm.retirar(189);
     console.log(atm.consultarQuantidade(100) === 9);
-    console.log(atm.consultarQuantidade(10) === 8);
-    console.log(atm.consultarQuantidade(50) === 3);
-    console.log(atm.consultarQuantidade(20) === 6);
+    console.log(atm.consultarQuantidade(10) === 9);
+    console.log(atm.consultarQuantidade(50) === 4);
+    console.log(atm.consultarQuantidade(20) === 5);
     console.log(atm.consultarQuantidade(5) === 1);
-    console.log(atm.consultarValor() === 1255);//900+80+150+120+5 = 1255
+    console.log(atm.consultarValor() === 1295);//900+80+150+120+5 = 1255
 
     </script>
   </body>
